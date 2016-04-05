@@ -1,5 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.views.generic.base import TemplateView
 
-# Create your views here.
-
+def post_list(request):
+	return render(request,'gturnos/hola.html', {})
