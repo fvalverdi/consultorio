@@ -16,12 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 
 from django.contrib import admin
-from gturnos import views
+#from gturnos import views
 
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),   
-    url(r'^turnos/', views.post_list),
+    url(r'', include('gturnos.urls')),
     
 ]
