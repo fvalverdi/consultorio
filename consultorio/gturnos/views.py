@@ -104,3 +104,36 @@ def paciente_edit(request, pk):
 def paciente_detail(request, pk):
 	pac = get_object_or_404(Paciente, pk=pk)	
 	return render(request, 'gturnos/paciente/detail.html', {'pac':pac})
+
+#  HISTORIAS CLINICAS
+
+def historia_new(request):
+	if request.method == "POST":
+		form = HistoriaForm(request.POST)
+		if form.is_valid():
+			historia = form.save()			#Aca Guardo
+			return redirect('gturnos.views.historia_detail',pk=historia.pk)
+		else:
+			return redirect('gturnos.views.historia_all')
+	else:		
+		form = HistoriaForm()
+		return render(request, 'gturnos/historia/new.html', {'form':form})
+
+def historia_all(request):
+	hisTodas = Historia_medica.objects.all()
+	return render(request, 'gturnos/historia/hisList.html', {'hisTodas':hisTodas})
+
+def historia_edit(request, pk):
+	historia = get_object_or_404(Historia_medica, pk=pk)
+	if request.method == "POST":
+		form = HistoriaForm(request.POST, instance=historia)
+		if form.is_valid():			
+			historia = form.save()
+			return redirect('gturnos.views.historia_detail',pk=historia.pk)
+	else:		
+		form = HistoriaForm(instance=historia)
+		return render(request, 'gturnos/historia/edit.html', {'form':form})
+
+def historia_detail(request, pk):
+	his = get_object_or_404(Historia_medica, pk=pk)	
+	return render(request, 'gturnos/historia/detail.html', {'his':his})
